@@ -51,14 +51,21 @@ class DiagnosisActivity : AppCompatActivity() {
             val type = object : TypeToken<ArrayList<Match>>() {}.type
             matched = Gson().fromJson(ss, type)
         }
-        adapter = DiagnosisAdapter(this, matched!!)
-        val list = findViewById<ListView>(R.id.diagList)
-        list.adapter = adapter
-        list.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+        val data = match!![0]
+        matchName.text = data.fever!!.name
+        cont_btn.setOnClickListener {
             startActivity(Intent(this, TreatmentActivity::class.java).apply {
-                putExtra("fever", Gson().toJson(list.getItemAtPosition(position) as Match))
+                putExtra("fever", Gson().toJson(data))
             })
         }
+//        adapter = DiagnosisAdapter(this, matched!!)
+//        val list = findViewById<ListView>(R.id.diagList)
+//        list.adapter = adapter
+//        list.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+//            startActivity(Intent(this, TreatmentActivity::class.java).apply {
+//                putExtra("fever", Gson().toJson(list.getItemAtPosition(position) as Match))
+//            })
+//        }
     }
 
     private fun MatchSymptoms(selected: ArrayList<Symptoms>?): ArrayList<Match>? {

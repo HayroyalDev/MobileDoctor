@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         supportActionBar!!.title = "Mobile Doctor"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appPreference = AppPreference(this)
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         cont_btn.setOnClickListener {
-            if (selectedData.size == 0)
-                Toast.makeText(this, "Kindly Select One or More Symptoms.", Toast.LENGTH_SHORT).show()
+            if (selectedData.size < 4)
+                Toast.makeText(this, "Kindly select at least four(4) symptoms.", Toast.LENGTH_SHORT).show()
             else {
                 val type = object : TypeToken<ArrayList<Symptoms>>() {}.type
                 startActivity(Intent(this, DiagnosisActivity::class.java).apply {
